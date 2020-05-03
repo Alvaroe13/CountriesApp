@@ -8,7 +8,7 @@ import java.util.List;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ListCountryModel extends ViewModel {
+public class ListCountryViewModel extends ViewModel {
 
     public MutableLiveData<List<CountryModel>> countriesList = new MutableLiveData<List<CountryModel>>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<Boolean>();

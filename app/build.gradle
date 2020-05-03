@@ -29,7 +29,7 @@ android {
 }
 
 
-def lifecycleExtensionVersion = '1.1.1'
+def lifecycle_version  = '2.2.0'
 def butterknifeVersion = '10.1.0'
 def supportVersion = '29.0.0'
 def retrofitVersion = '2.3.0'
@@ -48,10 +48,12 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
 
     // this one is throwing an error when building project
-   // implementation "android.arch.lifecycle.extensions:$lifecycleExtensionVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compier:$butterknifeVersion"
+
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
