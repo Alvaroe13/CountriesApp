@@ -2,12 +2,12 @@ package com.example.countriesapp.model;
 
 public class CountryModel {
     String name;
-    String capital;
+    String capitalCity;
     String flag;
 
-    public CountryModel(String name, String capital, String flag) {
+    public CountryModel(String name, String capitalCity, String flag) {
         this.name = name;
-        this.capital = capital;
+        this.capitalCity = capitalCity;
         this.flag = flag;
     }
 
@@ -15,8 +15,8 @@ public class CountryModel {
         return name;
     }
 
-    public String getCapital() {
-        return capital;
+    public String getCapitalCity() {
+        return capitalCity;
     }
 
     public String getFlag() {
