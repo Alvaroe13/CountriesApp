@@ -47,13 +47,11 @@ dependencies {
     //here implemented as in the tutorial.
     implementation "com.android.support:design:$supportVersion"
 
-    // this one is throwing an error when building project
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compier:$butterknifeVersion"
-
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -72,7 +70,7 @@ dependencies {
 
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "android.arch.core:core-testing:$arch_version"
-    //here
+    //here it ends
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

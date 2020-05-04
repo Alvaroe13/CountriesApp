@@ -24,6 +24,13 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         this.countriesList = countriesList;
     }
 
+    public void updateCountryList( List<CountryModel> newCountries){
+        countriesList.clear();
+        countriesList.addAll(newCountries);
+        notifyDataSetChanged();
+
+    }
+
     @NonNull
     @Override
     public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
