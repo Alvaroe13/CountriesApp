@@ -9,9 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceCountry {
 
-    private static final String TAG = "Service";
-
-    public static final String BASE_URL = "https://raw.githubusercontent.com/";
+    private static final String BASE_URL = "https://raw.githubusercontent.com";
     private static ServiceCountry serviceCountryInstance;
 
     private CountryAPI apiURL = new Retrofit.Builder()

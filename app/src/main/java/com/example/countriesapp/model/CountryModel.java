@@ -1,8 +1,16 @@
 package com.example.countriesapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CountryModel {
+
+    @SerializedName("name")
     String name;
+
+    @SerializedName("capital")  //this is it's key name in the json file
     String capitalCity;
+
+    @SerializedName("flagPNG")
     String flag;
 
     public CountryModel(String name, String capitalCity, String flag) {

@@ -9,23 +9,23 @@ import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class ListCountryViewModel extends ViewModel {
+
+    private static final String TAG = "ListCountryViewModel";
 
     public MutableLiveData<List<CountryModel>> countriesList = new MutableLiveData<List<CountryModel>>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<Boolean>();
     public MutableLiveData<Boolean> loadingError = new MutableLiveData<Boolean>();
 
     private ServiceCountry serviceCountry = ServiceCountry.getInstance();
+
+    //RxJava
     private CompositeDisposable disposableData = new CompositeDisposable();
-
-
 
     //this is UI entry point to the ViewModel
     public void refresh(){
@@ -38,7 +38,8 @@ public class ListCountryViewModel extends ViewModel {
         loading.setValue(true);
         disposableData.add(
                 serviceCountry.getCountries()   //here we retrieve countries from the service file created
-                .subscribeOn(Schedulers.newThread())    //open a new background thread to fetch the info
+                .subscribeOn(Schedulers.newThread())    //open a new communication using background thread to fetch the info
+                .observeOn(AndroidSchedulers.mainThread()) //here we manage the communication with the main thread
                 .subscribeWith(new DisposableSingleObserver<List<CountryModel>>() {
                     @Override
                     public void onSuccess(List<CountryModel> countryModels) {

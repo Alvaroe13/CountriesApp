@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface CountryAPI {
 
-    @GET("/DevTides/countries/master/countriesV2.json")
+    @GET("DevTides/countries/master/countriesV2.json")
     Single<List<CountryModel>> getInfo();
 
 }

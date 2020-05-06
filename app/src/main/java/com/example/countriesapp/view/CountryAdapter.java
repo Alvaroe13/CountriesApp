@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.countriesapp.R;
 import com.example.countriesapp.model.CountryModel;
+import com.example.countriesapp.model.Util;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
 
-        holder.bind(countriesList.get(position));
+        holder.bind(countriesList.get(position));   //bind  method from ViewHolder class
     }
 
     @Override
@@ -71,6 +72,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         void bind( CountryModel countryModel){
             countryName.setText(countryModel.getName());
             capitalCity.setText(countryModel.getCapitalCity());
+            //here we pass the flags
+            Util.loadPicture(countryFlag, countryModel.getFlag(), Util.getProgressBar(countryFlag.getContext()));
         }
 
 
