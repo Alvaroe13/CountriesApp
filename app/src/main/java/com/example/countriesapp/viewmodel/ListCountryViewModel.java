@@ -1,18 +1,31 @@
 package com.example.countriesapp.viewmodel;
 
-import com.example.countriesapp.model.CountryModel;
+import android.util.Log;
 
-import java.util.ArrayList;
+import com.example.countriesapp.model.CountryModel;
+import com.example.countriesapp.model.ServiceCountry;
+
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class ListCountryViewModel extends ViewModel {
 
     public MutableLiveData<List<CountryModel>> countriesList = new MutableLiveData<List<CountryModel>>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<Boolean>();
     public MutableLiveData<Boolean> loadingError = new MutableLiveData<Boolean>();
+
+    private ServiceCountry serviceCountry = ServiceCountry.getInstance();
+    private CompositeDisposable disposableData = new CompositeDisposable();
+
+
 
     //this is UI entry point to the ViewModel
     public void refresh(){
@@ -21,22 +34,37 @@ public class ListCountryViewModel extends ViewModel {
 
     //here's where the fetching from the server happens to be pass to the UI in refresh method
     private void fetchInfoFromDB() {
-        //fake info for now
-        CountryModel country1 = new CountryModel("Argentina", "Buenos Aires", "");
-        CountryModel country2 = new CountryModel("Bolivia", "La Paz", "");
-        CountryModel country3 = new CountryModel("Colombia", "Bogota", "");
+        //while fetching info we show the loading bar
+        loading.setValue(true);
+        disposableData.add(
+                serviceCountry.getCountries()   //here we retrieve countries from the service file created
+                .subscribeOn(Schedulers.newThread())    //open a new background thread to fetch the info
+                .subscribeWith(new DisposableSingleObserver<List<CountryModel>>() {
+                    @Override
+                    public void onSuccess(List<CountryModel> countryModels) {
+                        countriesList.setValue(countryModels);
+                        loadingError.setValue(false);
+                        loading.setValue(false);
+                    }
 
-        List<CountryModel> listOfCountries = new ArrayList<>();
-        listOfCountries.add(country1);
-        listOfCountries.add(country2);
-        listOfCountries.add(country3);
+                    @Override
+                    public void onError(Throwable e) {
+                        loadingError.setValue(true);
+                        loading.setValue(false);
+                        e.printStackTrace();
+                        Log.i(TAG, "onError: error: " + e.getMessage() );
 
-        countriesList.setValue( listOfCountries );
-        //these next two are false since we're not fetching info from a server just yet.
-        loading.setValue(false);
-        loadingError.setValue(false);
+                    }
+                })
+
+        );
+
 
     }
 
-
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposableData.clear();
+    }
 }
