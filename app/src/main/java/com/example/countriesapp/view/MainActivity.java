@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initRecycler();
         initViewModel();
+        swipeRefreshHandle();
         observeViewModel();
     }
 
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(ListCountryViewModel.class);
         //we call method in ViewModel in charge of refreshing the data coming from the server
         viewModel.refresh();
+    }
+
+    private void swipeRefreshHandle(){
+        refreshLayout.setOnRefreshListener(() -> {
+          viewModel.refresh();
+          refreshLayout.setRefreshing(false);
+        });
     }
 
     /**
