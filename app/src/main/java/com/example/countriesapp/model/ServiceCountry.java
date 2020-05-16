@@ -1,6 +1,6 @@
 package com.example.countriesapp.model;
 
-import com.example.countriesapp.dependencyInjection.DaggerCountryAPIComponent;
+import com.example.countriesapp.dependencyInjection.API.DaggerCountryAPIComponent;
 
 import java.util.List;
 

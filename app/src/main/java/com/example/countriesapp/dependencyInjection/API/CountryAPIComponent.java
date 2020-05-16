@@ -1,4 +1,4 @@
-package com.example.countriesapp.dependencyInjection;
+package com.example.countriesapp.dependencyInjection.API;
 
 import com.example.countriesapp.model.ServiceCountry;
 

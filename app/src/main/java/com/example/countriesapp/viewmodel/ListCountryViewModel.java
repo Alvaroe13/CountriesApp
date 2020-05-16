@@ -2,10 +2,13 @@ package com.example.countriesapp.viewmodel;
 
 import android.util.Log;
 
+import com.example.countriesapp.dependencyInjection.Service.DaggerServiceCountryComponent;
 import com.example.countriesapp.model.CountryModel;
 import com.example.countriesapp.model.ServiceCountry;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -22,10 +25,18 @@ public class ListCountryViewModel extends ViewModel {
     public MutableLiveData<Boolean> loading = new MutableLiveData<Boolean>();
     public MutableLiveData<Boolean> loadingError = new MutableLiveData<Boolean>();
 
-    private ServiceCountry serviceCountry = ServiceCountry.getInstance();
+    @Inject
+    public ServiceCountry serviceCountry;
 
     //RxJava
     private CompositeDisposable disposableData = new CompositeDisposable();
+
+
+    public ListCountryViewModel() {
+        super();
+        //here we set the injection
+        DaggerServiceCountryComponent.create().setConnection(this);
+    }
 
     //this is UI entry point to the ViewModel
     public void refresh(){
